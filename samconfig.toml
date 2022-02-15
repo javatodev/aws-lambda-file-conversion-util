@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "file-conversion-util-lambda"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-rx0z8dojgtsi"
+s3_prefix = "file-conversion-util-lambda"
+region = "ap-southeast-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
