@@ -16,6 +16,8 @@ Resources:
         on S3
       Policies:
       - AWSLambdaBasicExecutionRole
+      - S3ReadPolicy:
+          BucketName: thumbnail-creator-uploads
       CodeUri: processFileUpload
     Metadata:
       SamResourceId: processFileUpload

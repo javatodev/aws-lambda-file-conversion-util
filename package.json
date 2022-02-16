@@ -1,9 +1,12 @@
 {
-    "name": "replaced-by-user-input",
-    "description": "replaced-by-user-input",
+    "name": "file-conversion-util",
+    "description": "file-conversion-util",
     "version": "0.0.1",
     "private": true,
-    "dependencies": {},
+    "dependencies": {
+        "gm": "^1.23.1",
+        "imagemagick": "^0.1.3"
+    },
     "devDependencies": {
         "jest": "^26.6.3"
     },
