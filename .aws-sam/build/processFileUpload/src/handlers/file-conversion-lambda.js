@@ -20,11 +20,11 @@ exports.processFileUpload = async (event, context) => {
 
   extension = fileKey.split(".")[1];
 
-  tempPath = path.join(os.tmpdir(), id + "." + extension);
+  inputPath = path.join(os.tmpdir(), id + "." + extension);
   outputPath = path.join(os.tmpdir(), "converted-" + id + "." + extension);
 
   console.log(
-    `Temporary file path created ${tempPath} with file extension ${extension}`
+    `Temporary file path created ${inputPath} with file extension ${extension}`
   );
 
   return s3
@@ -33,27 +33,23 @@ exports.processFileUpload = async (event, context) => {
     .then((data) => {
       console.log(`File reading done using given key and bucket name`);
 
-      fs.writeFileSync(tempPath, data.Body);
+      fs.writeFileSync(inputPath, data.body);
+      console.log("File written successfully\n");
+      console.log("The written has the following contents:");
+      console.log(fs.readFileSync(inputPath, "utf8"));
 
-      return gm(tempPath).identify(function (err, value) {
-        console.log("Image reading values" + value);
+      // return fs.writeFile(tempPath, data.Body, (err) => {
+      //   if (err) console.log(`Error in writing file ${err}`);
+      //   console.log("File written successfully");
 
-        if (err) {
-          console.log("Error in reading image idenficaiton" + err);
-        }
-      });
+      //   return gm(tempPath).identify(function (err, value) {
+      //     console.log("Image reading values" + value);
 
-      // im.resize(
-      //   {
-      //     srcPath: tempPath,
-      //     dstPath: outputPath,
-      //     width: 256,
-      //   },
-      //   function (err, stdout, stderr) {
-      //     if (err) throw err;
-      //     console.log("resized kittens.jpg to fit within 256x256px");
-      //   }
-      // );
+      //     if (err) {
+      //       console.log("Error in reading image idenficaiton" + err);
+      //     }
+      //   });
+      // });
     })
     .catch((err) => {
       console.log(`Error in reading S3 file ${err}`);
